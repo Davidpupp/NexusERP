@@ -1,4 +1,5 @@
-import { DollarSign, ShoppingBag, Users, TrendingUp, Package, AlertTriangle } from "lucide-react";
+import Link from "next/link";
+import { DollarSign, ShoppingBag, Users, TrendingUp, Package, AlertTriangle, Plus } from "lucide-react";
 import { StatCard } from "@/components/app/StatCard";
 import { RevenueChart } from "@/components/charts/RevenueChart";
 import { CategoryChart } from "@/components/charts/CategoryChart";
@@ -9,7 +10,9 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 import { NexusInsights } from "@/components/app/NexusInsights";
 
 export default async function DashboardPage() {
-  const { companyId } = await getCurrentCompany();
+  const { companyId, userName } = await getCurrentCompany();
+  const firstName = userName?.split(" ")[0] ?? "bem-vindo";
+  const today = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "2-digit", month: "long" }).format(new Date());
 
   const [transactions, ordersCount, customersCount, products, recent] = await Promise.all([
     prisma.transaction.findMany({ where: { companyId }, select: { type: true, amount: true, status: true, category: true, createdAt: true } }),
@@ -64,6 +67,20 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      {/* Cabeçalho de boas-vindas */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h1 className="text-xl md:text-2xl font-bold text-ice-white font-sora capitalize">Olá, {firstName} 👋</h1>
+          <p className="text-sm text-d-on-surface-variant capitalize">{today} · resumo da sua operação em tempo real.</p>
+        </div>
+        <Link
+          href="/app/pedidos"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-absolute-black bg-nexus-yellow hover:bg-nexus-yellow-dim transition-all hover:shadow-glow"
+        >
+          <Plus size={16} /> Novo pedido
+        </Link>
+      </div>
+
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard label="Receita (paga)" value={formatCurrency(revenue)} change={0} icon={DollarSign} iconColor="#4A90D9" />
         <StatCard label="Pedidos" value={String(ordersCount)} change={0} icon={ShoppingBag} iconColor="#FFD400" />
