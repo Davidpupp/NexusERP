@@ -12,6 +12,7 @@ interface StatCardProps {
 }
 
 export function StatCard({ label, value, change, changeLabel = "vs. mês anterior", icon: Icon, iconColor }: StatCardProps) {
+  const hasChange = typeof change === "number" && change !== 0;
   const isPositive = change >= 0;
 
   return (
@@ -19,7 +20,10 @@ export function StatCard({ label, value, change, changeLabel = "vs. mês anterio
       <div className="flex items-start justify-between mb-3">
         <p className="text-sm text-d-on-surface-variant">{label}</p>
         {Icon && (
-          <div className="w-8 h-8 rounded-lg bg-d-surface-container flex items-center justify-center">
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center"
+            style={{ backgroundColor: `${iconColor ?? "#FFD400"}1a` }}
+          >
             <Icon size={16} style={{ color: iconColor ?? "#FFD400" }} />
           </div>
         )}
@@ -27,17 +31,19 @@ export function StatCard({ label, value, change, changeLabel = "vs. mês anterio
 
       <p className="text-2xl font-bold text-ice-white mb-2 font-sora">{value}</p>
 
-      <div className="flex items-center gap-1.5">
-        {isPositive ? (
-          <TrendingUp size={14} className="text-success" />
-        ) : (
-          <TrendingDown size={14} className="text-danger" />
-        )}
-        <span className={cn("text-xs font-semibold", isPositive ? "text-success" : "text-danger")}>
-          {isPositive ? "+" : ""}{change.toFixed(1)}%
+      {hasChange ? (
+        <div className="flex items-center gap-1.5">
+          {isPositive ? <TrendingUp size={14} className="text-success" /> : <TrendingDown size={14} className="text-danger" />}
+          <span className={cn("text-xs font-semibold", isPositive ? "text-success" : "text-danger")}>
+            {isPositive ? "+" : ""}{change.toFixed(1)}%
+          </span>
+          <span className="text-xs text-d-on-surface-variant">{changeLabel}</span>
+        </div>
+      ) : (
+        <span className="inline-flex items-center gap-1.5 text-xs text-d-on-surface-variant">
+          <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" /> Atualizado em tempo real
         </span>
-        <span className="text-xs text-d-on-surface-variant">{changeLabel}</span>
-      </div>
+      )}
     </div>
   );
 }
