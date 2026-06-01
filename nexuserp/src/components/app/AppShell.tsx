@@ -32,7 +32,10 @@ export function AppShell({
   const [drawer, setDrawer] = useState(false);
 
   return (
-    <div className="flex h-screen bg-d-surface-low overflow-hidden">
+    <div
+      className="flex h-screen bg-d-surface-low overflow-hidden"
+      style={{ backgroundImage: "radial-gradient(48rem 32rem at 100% 0%, rgba(255,212,0,0.05), transparent 60%)" }}
+    >
       {/* Sidebar desktop */}
       <div className="hidden md:flex">
         <AppSidebar {...sidebar} />

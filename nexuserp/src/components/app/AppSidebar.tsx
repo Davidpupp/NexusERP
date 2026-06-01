@@ -98,13 +98,13 @@ export function AppSidebar({
         className={cn(
           "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group relative",
           active && !locked
-            ? "bg-nexus-yellow/15 text-ice-white"
+            ? "bg-nexus-yellow/15 text-ice-white ring-1 ring-nexus-yellow/25 shadow-[0_0_20px_-6px_rgba(255,212,0,0.45)]"
             : "text-d-on-surface-variant hover:bg-d-surface-container hover:text-ice-white",
           locked && "opacity-60"
         )}
       >
         {active && !locked && (
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-nexus-yellow rounded-r" />
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-nexus-yellow rounded-r shadow-[0_0_10px_rgba(255,212,0,0.6)]" />
         )}
         <Icon
           size={18}
