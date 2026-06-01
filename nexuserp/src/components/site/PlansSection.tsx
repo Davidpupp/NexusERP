@@ -23,8 +23,8 @@ export function PlansSection() {
               key={plan.slug}
               className={`relative rounded-2xl p-8 flex flex-col ${
                 plan.isPopular
-                  ? "bg-pub-text text-pub-bg shadow-2xl md:scale-105"
-                  : "bg-pub-surface border border-pub-border shadow-sm"
+                  ? "bg-pub-text text-pub-bg shadow-2xl md:scale-105 ring-2 ring-electric/40 shadow-electric/20"
+                  : "bg-pub-surface border border-pub-border shadow-sm hover:border-electric/40 transition-colors"
               }`}
             >
               {plan.isPopular && (
