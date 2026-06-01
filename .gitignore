@@ -1,0 +1,10 @@
+# Ferramentas de IA / CLI (config local, podem conter segredos)
+.codex/
+.claude/
+
+# Artefatos de brainstorm (efêmeros)
+**/.superpowers/
+
+# OS
+.DS_Store
+Thumbs.db

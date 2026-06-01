@@ -1,0 +1,58 @@
+import type { Plan } from "@/types";
+
+export const PLANS: Plan[] = [
+  {
+    id: "start",
+    name: "Start",
+    slug: "start",
+    price: 89,
+    setupFee: 0,
+    userLimit: 3,
+    isPopular: false,
+    features: [
+      "Até 3 usuários",
+      "Financeiro básico",
+      "Vendas e clientes",
+      "Estoque simples",
+      "Relatórios essenciais",
+      "Suporte por e-mail",
+    ],
+  },
+  {
+    id: "growth",
+    name: "Growth",
+    slug: "growth",
+    price: 249,
+    setupFee: 0,
+    userLimit: 10,
+    isPopular: true,
+    features: [
+      "Até 10 usuários",
+      "Financeiro completo",
+      "CRM e funil de vendas",
+      "Compras e estoque avançado",
+      "Projetos e tarefas",
+      "Dashboards avançados",
+      "Automações",
+      "Suporte prioritário",
+    ],
+  },
+  {
+    id: "enterprise",
+    name: "Enterprise",
+    slug: "enterprise",
+    price: 0,
+    setupFee: 0,
+    userLimit: null,
+    isPopular: false,
+    features: [
+      "Usuários ilimitados",
+      "Módulos personalizados",
+      "Integrações via API",
+      "Relatórios customizados",
+      "Onboarding dedicado",
+      "SLA personalizado",
+      "Suporte premium 24/7",
+    ],
+  },
+];

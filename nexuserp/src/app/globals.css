@@ -1,0 +1,246 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+/*
+  NexusERP — Design Systems (Stitch project 1893663162471472573)
+  - Light  "Banana / Antigravity"          → site institucional (default)
+  - Dark   "Cyber-Enterprise High-Performance" → app ERP (.theme-dark)
+*/
+
+@theme {
+  /* ===================== LIGHT — site institucional ===================== */
+  /* Brand */
+  --color-banana: #FFD54A;
+  --color-banana-dark: #F6C400;
+  --color-banana-light: #FFF3C4;
+  --color-graphite: #33363A;
+  --color-warm-white: #FAFAFA;
+  --color-soft-gray: #F1F2F4;
+  --color-silver: #C7CCD1;
+  --color-muted: #6B7180;
+  --color-border: #E5E7EB;
+
+  /* Semantic */
+  --color-success: #16A34A;
+  --color-success-light: #DCFCE7;
+  --color-danger: #DC2626;
+  --color-danger-light: #FEE2E2;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
+  --color-info: #1565C0;
+  --color-info-light: #DBEAFE;
+
+  /* Chart */
+  --color-chart-revenue: #4A90D9;
+  --color-chart-expense: #FFD54A;
+
+  /* ===================== PUBLIC — site comercial (amarelo elétrico, claro+escuro) =====================
+     Tokens semânticos que trocam de valor no escopo `.public-dark` (ver @layer base).
+     O amarelo elétrico é o único acento e NÃO muda entre claro/escuro. */
+  --color-electric: #FFE100;
+  --color-electric-strong: #FFD400;
+  --color-electric-soft: #FFF59B;
+  --color-pub-bg: #FAFAFA;
+  --color-pub-surface: #FFFFFF;
+  --color-pub-elevated: #F1F2F4;
+  --color-pub-text: #16181B;
+  --color-pub-muted: #5B6270;
+  --color-pub-border: #E6E8EC;
+  --color-pub-on-accent: #16181B;
+
+  /* ===================== DARK — app ERP (Cyber-Enterprise) ===================== */
+  --color-nexus-yellow: #FFD400;
+  --color-nexus-yellow-dim: #EBC300;
+  --color-absolute-black: #050505;
+  --color-graphite-surface: #111111;
+  --color-ice-white: #F7F7F2;
+
+  --color-d-surface: #131313;
+  --color-d-surface-low: #1C1B1B;
+  --color-d-surface-container: #201F1F;
+  --color-d-surface-high: #2A2A2A;
+  --color-d-surface-highest: #353534;
+  --color-d-on-surface: #E5E2E1;
+  --color-d-on-surface-variant: #D0C6AB;
+  --color-d-outline: #4D4632;
+  --color-d-border: rgba(247, 247, 242, 0.05);
+  --color-d-border-active: rgba(255, 212, 0, 0.4);
+  --color-d-glow: rgba(255, 212, 0, 0.15);
+
+  /* ===================== Typography ===================== */
+  --font-sora: "Sora", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  /* ===================== Shadows ===================== */
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-sidebar: 1px 0 0 #E5E7EB;
+  /* Dark: ambient yellow glow instead of black shadow */
+  --shadow-glow: 0 10px 30px rgba(255, 212, 0, 0.08);
+  --shadow-glow-soft: 0 -1px 20px rgba(255, 212, 0, 0.05);
+
+  /* ===================== Border Radius ===================== */
+  --radius-card: 0.75rem;
+  --radius-card-lg: 1.5rem;
+  --radius-button: 0.5rem;
+  --radius-input: 0.5rem;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Light is the default (site institucional) */
+  body {
+    background-color: var(--color-warm-white);
+    color: var(--color-graphite);
+    font-family: var(--font-inter);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sora);
+    font-weight: 600;
+    color: var(--color-graphite);
+  }
+
+  /* Light only — no OS dark override on the public site */
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: var(--color-warm-white);
+      color: var(--color-graphite);
+    }
+  }
+
+  /* ===================== DARK SCOPE — app ERP ===================== */
+  /* Applied via the (app) route group wrapper. Everything inside renders
+     on the Cyber-Enterprise dark palette. */
+  .theme-dark {
+    background-color: var(--color-absolute-black);
+    color: var(--color-ice-white);
+  }
+  .theme-dark h1,
+  .theme-dark h2,
+  .theme-dark h3,
+  .theme-dark h4,
+  .theme-dark h5,
+  .theme-dark h6 {
+    color: var(--color-ice-white);
+  }
+
+  /* ===================== LIGHT SCOPE — app ERP (tema claro) =====================
+     Remapeia os tokens dark p/ valores claros — as utilities `bg-graphite-surface`,
+     `text-ice-white`, `bg-d-surface-*`, `text-d-on-surface-variant`, `border-d-border`
+     herdam automaticamente. NÃO remapeia `--color-absolute-black` (usado como texto
+     sobre o amarelo) nem `--color-nexus-yellow` (amarelo A preservado). */
+  .theme-light {
+    --color-graphite-surface: #FFFFFF;
+    --color-ice-white: #16181B;
+    --color-d-surface: #FFFFFF;
+    --color-d-surface-low: #F4F5F7;
+    --color-d-surface-container: #F1F2F4;
+    --color-d-surface-high: #E8EAED;
+    --color-d-surface-highest: #DEE1E6;
+    --color-d-on-surface: #16181B;
+    --color-d-on-surface-variant: #5B6270;
+    --color-d-border: rgba(0, 0, 0, 0.10);
+    --color-d-border-active: rgba(255, 212, 0, 0.6);
+    background-color: #F4F5F7;
+    color: #16181B;
+  }
+  .theme-light h1,
+  .theme-light h2,
+  .theme-light h3,
+  .theme-light h4,
+  .theme-light h5,
+  .theme-light h6 {
+    color: #16181B;
+  }
+
+  /* ===================== PUBLIC DARK SCOPE =====================
+     Aplicado pelo wrapper do grupo (public) quando o visitante escolhe o tema
+     escuro. Remapeia os tokens `--color-pub-*` para a paleta premium; as
+     utilities `bg-pub-*`/`text-pub-*` herdam automaticamente. */
+  .public-dark {
+    --color-pub-bg: #050505;
+    --color-pub-surface: #111111;
+    --color-pub-elevated: #1C1C1E;
+    --color-pub-text: #F7F7F2;
+    --color-pub-muted: #9A9A95;
+    --color-pub-border: rgba(247, 247, 242, 0.08);
+  }
+  .public-dark h1,
+  .public-dark h2,
+  .public-dark h3,
+  .public-dark h4,
+  .public-dark h5,
+  .public-dark h6 {
+    color: var(--color-pub-text);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* ----- Light cards (site) ----- */
+  .card {
+    background-color: white;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-hover {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+
+  /* ----- Dark cards (app, Cyber-Enterprise) -----
+     Graphite surface, 1px inner stroke, no black shadow. */
+  .card-dark {
+    background-color: var(--color-graphite-surface);
+    border: 1px solid var(--color-d-border);
+    border-radius: var(--radius-card-lg);
+  }
+  .card-dark-hover {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .card-dark-hover:hover {
+    box-shadow: var(--shadow-glow);
+    border-color: var(--color-d-border-active);
+  }
+
+  /* Glassmorphic overlay (modals in dark) */
+  .glass-dark {
+    background-color: rgba(17, 17, 17, 0.6);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-glow-soft);
+  }
+
+  /* Scrollbar (light) */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: var(--color-soft-gray);
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-silver);
+    border-radius: 2px;
+  }
+
+  /* Scrollbar (dark scope) */
+  .theme-dark .scrollbar-thin::-webkit-scrollbar-track {
+    background: var(--color-d-surface-low);
+  }
+  .theme-dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-d-surface-highest);
+  }
+}
