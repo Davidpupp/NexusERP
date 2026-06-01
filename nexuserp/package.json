@@ -13,6 +13,7 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
     "db:seed:plans": "tsx prisma/seed-plans.ts",
+    "db:seed:admin": "tsx prisma/seed-admin.ts",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "db:dev": "node scripts/pg-dev.mjs",
