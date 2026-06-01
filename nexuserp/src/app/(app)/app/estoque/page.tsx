@@ -1,6 +1,8 @@
+import { Package, AlertTriangle, DollarSign } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getCurrentCompany } from "@/lib/tenant";
 import { formatCurrency } from "@/lib/utils";
+import { StatCard } from "@/components/app/StatCard";
 import { ProductManager } from "@/components/app/estoque/ProductManager";
 
 export default async function EstoquePage() {
@@ -15,9 +17,9 @@ export default async function EstoquePage() {
   const stockValue = products.reduce((s, p) => s + p.quantity * p.costPrice, 0);
 
   const kpis = [
-    { label: "Produtos (SKUs)", value: String(totalSkus), color: "text-ice-white" },
-    { label: "Estoque crítico", value: String(lowStock), color: lowStock > 0 ? "text-warning" : "text-ice-white" },
-    { label: "Valor em estoque", value: formatCurrency(stockValue), color: "text-ice-white" },
+    { label: "Produtos (SKUs)", value: String(totalSkus), icon: Package, color: "#FFD400" },
+    { label: "Estoque crítico", value: String(lowStock), icon: AlertTriangle, color: lowStock > 0 ? "#F59E0B" : "#16A34A" },
+    { label: "Valor em estoque", value: formatCurrency(stockValue), icon: DollarSign, color: "#4A90D9" },
   ];
 
   const data = products.map((p) => ({
@@ -36,10 +38,7 @@ export default async function EstoquePage() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {kpis.map((kpi) => (
-          <div key={kpi.label} className="bg-graphite-surface rounded-xl p-5 border border-d-border">
-            <p className="text-xs text-d-on-surface-variant mb-2">{kpi.label}</p>
-            <p className={`text-xl font-bold font-sora ${kpi.color}`}>{kpi.value}</p>
-          </div>
+          <StatCard key={kpi.label} label={kpi.label} value={kpi.value} change={0} icon={kpi.icon} iconColor={kpi.color} />
         ))}
       </div>
 

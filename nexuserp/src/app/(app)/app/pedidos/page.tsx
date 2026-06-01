@@ -1,6 +1,8 @@
+import { Receipt, CheckCircle, Clock } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getCurrentCompany } from "@/lib/tenant";
 import { formatCurrency } from "@/lib/utils";
+import { StatCard } from "@/components/app/StatCard";
 import { PedidosManager } from "@/components/app/pedidos/PedidosManager";
 
 export default async function PedidosPage() {
@@ -20,9 +22,9 @@ export default async function PedidosPage() {
   const openTotal = sales.filter((s) => s.status === "CONFIRMED").reduce((acc, s) => acc + s.total, 0);
 
   const kpis = [
-    { label: "Pedidos", value: String(sales.length) },
-    { label: "Faturado (pago)", value: formatCurrency(paidTotal) },
-    { label: "Em aberto", value: formatCurrency(openTotal) },
+    { label: "Pedidos", value: String(sales.length), icon: Receipt, color: "#FFD400" },
+    { label: "Faturado (pago)", value: formatCurrency(paidTotal), icon: CheckCircle, color: "#16A34A" },
+    { label: "Em aberto", value: formatCurrency(openTotal), icon: Clock, color: "#F59E0B" },
   ];
 
   const rows = sales.map((s) => ({
@@ -39,10 +41,7 @@ export default async function PedidosPage() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {kpis.map((kpi) => (
-          <div key={kpi.label} className="bg-graphite-surface rounded-xl p-5 border border-d-border">
-            <p className="text-xs text-d-on-surface-variant mb-2">{kpi.label}</p>
-            <p className="text-xl font-bold font-sora text-ice-white">{kpi.value}</p>
-          </div>
+          <StatCard key={kpi.label} label={kpi.label} value={kpi.value} change={0} icon={kpi.icon} iconColor={kpi.color} />
         ))}
       </div>
 
