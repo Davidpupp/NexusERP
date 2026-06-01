@@ -45,7 +45,7 @@ export function AutomationManager({ automations }: { readonly automations: Autom
   const confirmDelete = async () => { if (!deleteId) return; setBusy(true); const r = await deleteAutomation(deleteId); setBusy(false); if (r.success) { toast.success("Excluída"); setDeleteId(null); router.refresh(); } else toast.error(r.error); };
 
   return (
-    <div className="bg-graphite-surface rounded-xl border border-d-border overflow-hidden">
+    <div className="card-dark overflow-hidden">
       <div className="flex items-center justify-between px-5 py-4 border-b border-d-border">
         <h2 className="text-sm font-semibold text-ice-white">Automações</h2>
         <PrimaryButton onClick={openCreate} className="flex items-center gap-1.5 !px-4 !py-2 text-xs"><Plus size={14} /> Nova automação</PrimaryButton>

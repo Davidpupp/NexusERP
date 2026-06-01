@@ -76,7 +76,7 @@ export function ComprasManager({ suppliers, orders }: { readonly suppliers: Supp
       </div>
 
       {tab === "fornecedores" ? (
-        <div className="bg-graphite-surface rounded-xl border border-d-border overflow-hidden">
+        <div className="card-dark overflow-hidden">
           <div className="flex items-center justify-between px-5 py-4 border-b border-d-border">
             <h2 className="text-sm font-semibold text-ice-white">Fornecedores</h2>
             <PrimaryButton onClick={openSCreate} className="flex items-center gap-1.5 !px-4 !py-2 text-xs"><Plus size={14} /> Novo fornecedor</PrimaryButton>
@@ -106,7 +106,7 @@ export function ComprasManager({ suppliers, orders }: { readonly suppliers: Supp
           )}
         </div>
       ) : (
-        <div className="bg-graphite-surface rounded-xl border border-d-border overflow-hidden">
+        <div className="card-dark overflow-hidden">
           <div className="flex items-center justify-between px-5 py-4 border-b border-d-border">
             <h2 className="text-sm font-semibold text-ice-white">Pedidos de compra</h2>
             <PrimaryButton onClick={openOCreate} className="flex items-center gap-1.5 !px-4 !py-2 text-xs"><Plus size={14} /> Novo pedido</PrimaryButton>

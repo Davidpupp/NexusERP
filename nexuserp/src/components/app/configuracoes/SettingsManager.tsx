@@ -102,7 +102,7 @@ export function SettingsManager({
       )}
 
       {/* Members */}
-      <div className="bg-graphite-surface rounded-xl border border-d-border overflow-hidden">
+      <div className="card-dark overflow-hidden">
         <div className="px-6 py-4 border-b border-d-border">
           <h2 className="text-sm font-semibold text-ice-white">Membros da equipe</h2>
         </div>

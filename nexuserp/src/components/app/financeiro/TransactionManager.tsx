@@ -99,7 +99,7 @@ export function TransactionManager({ transactions }: { readonly transactions: Tr
   };
 
   return (
-    <div className="bg-graphite-surface rounded-xl border border-d-border overflow-hidden">
+    <div className="card-dark overflow-hidden">
       <div className="flex items-center justify-between px-5 py-4 border-b border-d-border">
         <h2 className="text-sm font-semibold text-ice-white">Transações</h2>
         <PrimaryButton onClick={openCreate} className="flex items-center gap-1.5 !px-4 !py-2 text-xs">
