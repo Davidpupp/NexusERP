@@ -80,11 +80,11 @@ export function TaskBoard({ tasks, projects }: { readonly tasks: TaskRow[]; read
               <div className={`bg-graphite-surface rounded-xl border border-d-border border-t-2 ${col.color} p-3`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-semibold text-ice-white">{col.label}</span>
-                  <span className="text-xs text-d-on-surface-variant">{items.length}</span>
+                  <span className="text-[10px] font-bold text-d-on-surface-variant bg-d-surface-container px-2 py-0.5 rounded-full">{items.length}</span>
                 </div>
                 <div className="space-y-2">
                   {items.map((t) => (
-                    <div key={t.id} className="bg-d-surface-container rounded-lg p-3 group">
+                    <div key={t.id} className="bg-d-surface-container rounded-lg p-3 group border border-transparent hover:border-nexus-yellow/40 hover:-translate-y-0.5 transition-all">
                       <p className="text-sm text-ice-white font-medium">{t.title}</p>
                       <p className={`text-xs mt-1 font-medium ${PRIORITY[t.priority]}`}>{t.priority}</p>
                       <div className="flex items-center gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">

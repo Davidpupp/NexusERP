@@ -120,14 +120,14 @@ export function OpportunityManager({
           return (
             <div key={col.key} className="w-60 flex-shrink-0">
               <div className={`bg-graphite-surface rounded-xl border border-d-border border-t-2 ${col.color} p-3`}>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-semibold text-ice-white">{col.label}</span>
-                  <span className="text-xs text-d-on-surface-variant">{items.length}</span>
+                  <span className="text-[10px] font-bold text-d-on-surface-variant bg-d-surface-container px-2 py-0.5 rounded-full">{items.length}</span>
                 </div>
-                <p className="text-xs text-d-on-surface-variant mb-3">{formatCurrency(total)}</p>
+                <p className="text-sm font-bold text-nexus-yellow mb-3 tabular-nums">{formatCurrency(total)}</p>
                 <div className="space-y-2">
                   {items.map((o) => (
-                    <div key={o.id} className="bg-d-surface-container rounded-lg p-3 group">
+                    <div key={o.id} className="bg-d-surface-container rounded-lg p-3 group border border-transparent hover:border-nexus-yellow/40 hover:-translate-y-0.5 transition-all cursor-default">
                       <p className="text-sm text-ice-white font-medium truncate">{o.title}</p>
                       {o.customerName && <p className="text-xs text-d-on-surface-variant truncate">{o.customerName}</p>}
                       <p className="text-sm font-semibold text-nexus-yellow mt-1 tabular-nums">{formatCurrency(o.estimatedValue)}</p>

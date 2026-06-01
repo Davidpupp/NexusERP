@@ -44,14 +44,14 @@ export default async function RelatoriosPage() {
     <div className="space-y-6">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((c) => (
-          <div key={c.label} className="bg-graphite-surface rounded-xl p-5 border border-d-border">
+          <div key={c.label} className="card-dark card-dark-hover p-5">
             <p className="text-xs text-d-on-surface-variant mb-2">{c.label}</p>
             <p className={`text-xl font-bold font-sora ${c.color}`}>{c.value}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-graphite-surface rounded-xl p-5 border border-d-border">
+      <div className="card-dark p-5">
         <h3 className="text-sm font-semibold text-ice-white mb-4">Despesas por categoria</h3>
         {topCategories.length === 0 ? (
           <p className="text-sm text-d-on-surface-variant">Sem dados de despesa.</p>
