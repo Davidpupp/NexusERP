@@ -1,7 +1,9 @@
+import { Wallet, TrendingUp, TrendingDown, Clock } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getCurrentCompany } from "@/lib/tenant";
 import { isPluggyEnabled } from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
+import { StatCard } from "@/components/app/StatCard";
 import { TransactionManager } from "@/components/app/financeiro/TransactionManager";
 import { BankPanel } from "@/components/app/financeiro/BankPanel";
 
@@ -20,10 +22,10 @@ export default async function FinanceiroPage() {
     .reduce((s, t) => s + t.amount, 0);
 
   const kpis = [
-    { label: "Saldo Atual", value: formatCurrency(balance), color: "text-ice-white" },
-    { label: "Receitas (pagas)", value: formatCurrency(paidIncome), color: "text-success" },
-    { label: "Despesas (pagas)", value: formatCurrency(paidExpense), color: "text-danger" },
-    { label: "Pendências", value: formatCurrency(pending), color: "text-warning" },
+    { label: "Saldo Atual", value: formatCurrency(balance), icon: Wallet, color: "#FFD400" },
+    { label: "Receitas (pagas)", value: formatCurrency(paidIncome), icon: TrendingUp, color: "#16A34A" },
+    { label: "Despesas (pagas)", value: formatCurrency(paidExpense), icon: TrendingDown, color: "#DC2626" },
+    { label: "Pendências", value: formatCurrency(pending), icon: Clock, color: "#F59E0B" },
   ];
 
   const data = transactions.map((t) => ({
@@ -40,12 +42,9 @@ export default async function FinanceiroPage() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi) => (
-          <div key={kpi.label} className="bg-graphite-surface rounded-xl p-5 border border-d-border">
-            <p className="text-xs text-d-on-surface-variant mb-2">{kpi.label}</p>
-            <p className={`text-xl font-bold font-sora ${kpi.color}`}>{kpi.value}</p>
-          </div>
+          <StatCard key={kpi.label} label={kpi.label} value={kpi.value} change={0} icon={kpi.icon} iconColor={kpi.color} />
         ))}
       </div>
 
