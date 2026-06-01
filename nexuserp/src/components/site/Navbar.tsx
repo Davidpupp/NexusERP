@@ -59,10 +59,10 @@ export function Navbar() {
             Entrar
           </Link>
           <Link
-            href="/adquirir"
+            href="/checkout?plano=growth"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-electric text-pub-on-accent hover:bg-electric-strong transition-all duration-200 shadow-sm"
           >
-            Adquirir nossos serviços
+            Assinar agora
             <ArrowRight size={15} />
           </Link>
         </div>
@@ -102,11 +102,11 @@ export function Navbar() {
               Entrar
             </Link>
             <Link
-              href="/adquirir"
+              href="/checkout?plano=growth"
               className="block text-center px-4 py-2.5 rounded-full text-sm font-semibold bg-electric text-pub-on-accent"
               onClick={() => setMobileOpen(false)}
             >
-              Adquirir nossos serviços
+              Assinar agora
             </Link>
           </div>
         </div>

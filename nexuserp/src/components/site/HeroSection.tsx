@@ -38,19 +38,23 @@ export function HeroSection() {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="/adquirir"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-pub-on-accent bg-electric hover:bg-electric-strong transition-all duration-200 shadow-lg shadow-electric/30"
+              href="/checkout?plano=growth"
+              className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-semibold text-pub-on-accent bg-electric hover:bg-electric-strong transition-all duration-200 shadow-lg shadow-electric/30 hover:shadow-electric/50 hover:scale-[1.02]"
             >
-              Adquirir nossos serviços
-              <ArrowRight size={16} />
+              Assinar agora
+              <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link
-              href="/login"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold text-pub-text border border-pub-border hover:bg-pub-elevated transition-all duration-200"
+              href="/adquirir"
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-semibold text-pub-text border border-pub-border hover:bg-pub-elevated transition-all duration-200"
             >
-              Entrar
+              Falar com a equipe
             </Link>
           </div>
+
+          <p className="mt-4 text-sm text-pub-muted">
+            A partir de <span className="font-semibold text-pub-text">R$ 89/mês</span> · sem taxa de implantação · cancele quando quiser
+          </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-pub-muted">
             <span className="inline-flex items-center gap-2"><ShieldCheck size={16} className="text-electric" /> Seguro e conforme a LGPD</span>

@@ -33,22 +33,22 @@ export function CtaSection() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/adquirir"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-pub-on-accent bg-electric hover:bg-electric-strong transition-all duration-200 shadow-lg shadow-electric/30"
+                href="/checkout?plano=growth"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-pub-on-accent bg-electric hover:bg-electric-strong transition-all duration-200 shadow-lg shadow-electric/30 hover:scale-[1.02]"
               >
-                Adquirir nossos serviços
-                <ArrowRight size={18} />
+                Assinar agora
+                <ArrowRight size={18} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
-                href="/login"
+                href="/adquirir"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-pub-bg border border-pub-bg/20 hover:bg-pub-bg/10 transition-all duration-200"
               >
-                Entrar
+                Falar com a equipe
               </Link>
             </div>
 
             <p className="text-pub-bg/40 text-sm mt-6">
-              Plataforma paga • Implantação assistida • Suporte em português
+              A partir de R$ 89/mês • sem taxa de implantação • cancele quando quiser
             </p>
           </div>
         </div>

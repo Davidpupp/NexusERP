@@ -79,14 +79,14 @@ export function PlansSection() {
                     : "border border-pub-border text-pub-text hover:bg-pub-elevated"
                 }`}
               >
-                {plan.slug === "enterprise" ? "Falar com especialista" : "Adquirir plano"}
+                {plan.slug === "enterprise" ? "Falar com especialista" : "Assinar agora"}
               </Link>
             </div>
           ))}
         </div>
 
         <p className="text-center text-sm text-pub-muted mt-8">
-          Valor mensal + implantação única. Sistema pago, sem teste gratuito — o acesso é liberado após a contratação.
+          Valor mensal, sem taxa de implantação. Sistema pago, sem teste gratuito — o acesso é liberado após a contratação.
         </p>
       </div>
     </section>
