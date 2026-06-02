@@ -6,6 +6,9 @@ test("compra → liberação automática → onboarding", async ({ page }) => {
   const email = `e2e${Date.now()}@nexus.test`;
 
   await page.goto("/checkout?plano=growth");
+  // Tela de escolha sempre aparece primeiro: confirma o plano no card.
+  await page.getByRole("button", { name: /Selecionar plano Growth/i }).click();
+  await page.waitForURL(/step=dados/);
   await page.getByPlaceholder("João Silva").fill("E2E Tester");
   await page.getByPlaceholder("joao@empresa.com.br").fill(email);
   await page.getByPlaceholder("(11) 99999-9999").fill("11999999999");

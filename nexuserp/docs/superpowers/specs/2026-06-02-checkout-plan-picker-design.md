@@ -7,7 +7,7 @@ Hoje a escolha de plano no checkout é um `<select>` dentro do formulário de da
 
 ## Decisões (travadas com o usuário)
 1. **Tela dedicada antes do form**, vira **passo 1** do stepper. Form = passo 2, pagamento = passo 3.
-2. Quando chega com `?plano=` na URL (CTAs da landing), **pula a escolha** e vai direto ao formulário. A tela de escolha só aparece em `/checkout` sem `?plano=`.
+2. A tela de escolha **aparece sempre** em `/checkout`, inclusive vindo de CTA com `?plano=` (nesse caso o plano da URL fica pré-destacado). O avanço ao formulário acontece só ao confirmar o plano no card, via marcador `step=dados` (`/checkout?plano=<slug>&step=dados`). _(Atualizado: a versão inicial pulava a escolha quando `?plano=` estava presente.)_
 3. Os dois cards = planos com `price > 0`: **Start (R$89)** e **Growth (R$249)**. Enterprise (`price: 0`, "sob consulta") fica fora — já é o comportamento atual.
 
 ## Arquitetura / fluxo

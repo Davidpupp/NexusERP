@@ -21,11 +21,13 @@ import type { Plan } from "@/types";
 export function PlanCard({
   plan,
   popular,
+  preselected = false,
   index,
   onSelect,
 }: {
   readonly plan: Plan;
   readonly popular: boolean;
+  readonly preselected?: boolean;
   readonly index: number;
   readonly onSelect: () => void;
 }) {
@@ -78,9 +80,11 @@ export function PlanCard({
         "group relative isolate flex flex-col text-left rounded-3xl p-7 sm:p-8 w-full",
         "bg-absolute-black border transition-colors duration-300",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-nexus-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-absolute-black",
-        popular
-          ? "border-nexus-yellow/60 hover:border-nexus-yellow"
-          : "border-d-border hover:border-nexus-yellow/50"
+        preselected
+          ? "border-nexus-yellow ring-1 ring-nexus-yellow/50"
+          : popular
+            ? "border-nexus-yellow/60 hover:border-nexus-yellow"
+            : "border-d-border hover:border-nexus-yellow/50"
       )}
     >
       {/* Luz amarela atrás do card (pulsa devagar, exceto em reduced-motion). */}

@@ -22,7 +22,7 @@ test("política de privacidade acessível", async ({ page }) => {
 });
 
 test("checkout (dados) carrega com resumo do pedido", async ({ page }) => {
-  await page.goto("/checkout?plano=growth");
+  await page.goto("/checkout?plano=growth&step=dados");
   await expect(page.getByText(/Resumo do pedido/i)).toBeVisible();
   await expect(page.getByRole("button", { name: /ir para o pagamento/i })).toBeVisible();
 });

@@ -20,16 +20,19 @@ function CheckoutContent() {
   const searchParams = useSearchParams();
   const planParam = searchParams.get("plano");
 
-  // Sem plano definido → tela interativa de escolha (passo 1).
-  if (!planParam) {
+  // A tela de escolha SEMPRE aparece primeiro (passo 1) — inclusive vindo de CTA
+  // com ?plano=. Só avança ao formulário quando o plano foi confirmado no card
+  // (marcador step=dados, definido pelo próprio PlanPicker).
+  const confirmed = searchParams.get("step") === "dados";
+  if (!confirmed) {
     return (
       <CheckoutShell step={1}>
-        <PlanPicker />
+        <PlanPicker selectedSlug={planParam} />
       </CheckoutShell>
     );
   }
 
-  // Com plano (escolha feita ou CTA da landing) → formulário de dados (passo 2).
+  // Plano confirmado → formulário de dados (passo 2).
   const selectedPlan = PLANS.find((p) => p.slug === planParam && p.price > 0) ?? PLANS[1];
   return <CheckoutForm selectedPlan={selectedPlan} />;
 }

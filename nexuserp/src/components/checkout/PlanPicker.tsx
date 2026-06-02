@@ -10,7 +10,7 @@ import { PlanCard } from "@/components/checkout/PlanCard";
  * pagos como cards reativos ao mouse. Selecionar leva ao formulário de dados
  * com o plano definido na URL (?plano=<slug>).
  */
-export function PlanPicker() {
+export function PlanPicker({ selectedSlug }: { readonly selectedSlug?: string | null }) {
   const router = useRouter();
   const plans = PLANS.filter((p) => p.price > 0);
 
@@ -36,8 +36,9 @@ export function PlanPicker() {
             key={plan.slug}
             plan={plan}
             popular={plan.isPopular}
+            preselected={plan.slug === selectedSlug}
             index={i}
-            onSelect={() => router.push(`/checkout?plano=${plan.slug}`)}
+            onSelect={() => router.push(`/checkout?plano=${plan.slug}&step=dados`)}
           />
         ))}
       </div>
