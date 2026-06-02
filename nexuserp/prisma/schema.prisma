@@ -224,17 +224,21 @@ model BankConnection {
 }
 
 model CompanyProfile {
-  id             String    @id @default(cuid())
-  companyId      String    @unique
-  segment        String
-  companySize    String?
-  channels       String[]  @default([])
-  primaryModules String[]  @default([])
-  prefs          Json?
-  onboardedAt    DateTime?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  company        Company   @relation(fields: [companyId], references: [id])
+  id                String    @id @default(cuid())
+  companyId         String    @unique
+  segment           String
+  niche             String?
+  companySize       String?
+  channels          String[]  @default([])
+  primaryModules    String[]  @default([])
+  selectedModules   String[]  @default([])
+  onboardingAnswers Json?
+  dashboardConfig   Json?
+  prefs             Json?
+  onboardedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  company           Company   @relation(fields: [companyId], references: [id])
 }
 
 model CompanyMember {

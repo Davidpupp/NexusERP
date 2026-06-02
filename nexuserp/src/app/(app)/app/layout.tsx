@@ -1,9 +1,14 @@
+import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app/AppShell";
 import { getCurrentCompany } from "@/lib/tenant";
 import { prisma } from "@/lib/prisma";
 
 export default async function AppLayout({ children }: { readonly children: React.ReactNode }) {
   const ctx = await getCurrentCompany();
+
+  // Fluxo pós-compra: quem ainda não configurou o sistema passa pelo onboarding
+  // guiado antes de usar o painel. (/onboarding fica fora deste layout → sem loop.)
+  if (!ctx.onboarded) redirect("/onboarding");
   const notifications = await prisma.notification.findMany({
     where: { companyId: ctx.companyId },
     orderBy: { createdAt: "desc" },

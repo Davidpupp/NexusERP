@@ -44,6 +44,11 @@ async function main() {
     const periodEnd = new Date();
     periodEnd.setMonth(periodEnd.getMonth() + 1);
     await prisma.subscription.create({ data: { companyId: company.id, planId: growth.id, status: "ACTIVE", currentPeriodEnd: periodEnd } });
+    await prisma.companyProfile.upsert({
+      where: { companyId: company.id },
+      update: { onboardedAt: new Date() },
+      create: { companyId: company.id, segment: "comercio", niche: "comercio", primaryModules: ["vendas", "estoque", "financeiro", "clientes", "relatorios"], selectedModules: ["vendas", "estoque", "financeiro", "clientes", "relatorios"], dashboardConfig: { cards: ["monthlySales", "lowStock", "recentOrders", "monthlyRevenue", "clients"] }, onboardedAt: new Date() },
+    });
   } else {
     const sub = await prisma.subscription.findFirst({ where: { companyId: membership.companyId } });
     if (!sub) {

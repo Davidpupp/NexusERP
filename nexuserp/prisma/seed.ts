@@ -107,6 +107,21 @@ async function main() {
     },
   });
 
+  // Perfil já configurado (admin não é forçado ao onboarding).
+  await prisma.companyProfile.upsert({
+    where: { companyId: company.id },
+    update: { onboardedAt: new Date() },
+    create: {
+      companyId: company.id,
+      segment: "comercio",
+      niche: "comercio",
+      primaryModules: ["vendas", "estoque", "financeiro", "clientes", "relatorios"],
+      selectedModules: ["vendas", "estoque", "financeiro", "clientes", "relatorios"],
+      dashboardConfig: { cards: ["monthlySales", "lowStock", "recentOrders", "monthlyRevenue", "clients"] },
+      onboardedAt: new Date(),
+    },
+  });
+
   console.log("✅ Company and subscription created");
 
   // Customers

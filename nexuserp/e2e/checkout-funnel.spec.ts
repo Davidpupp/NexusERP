@@ -29,14 +29,15 @@ test("compra → liberação automática → onboarding", async ({ page }) => {
   await page.getByPlaceholder(/Confirme a senha/i).fill("senha12345");
   await page.getByRole("button", { name: /ativar e acessar/i }).click();
 
-  // Auto-login → onboarding adaptativo.
+  // Auto-login → onboarding adaptativo (wizard por nicho).
   await page.waitForURL(/\/onboarding/, { timeout: 45_000 });
-  await page.getByRole("button", { name: /Varejo/i }).click();
-  await page.getByRole("button", { name: /^Continuar$/i }).click();
-  await page.getByRole("button", { name: /Apenas eu/i }).click();
-  await page.getByRole("button", { name: /^Continuar$/i }).click();
-  await page.getByRole("button", { name: /^Continuar$/i }).click(); // canais (opcional)
-  await page.getByRole("button", { name: /Configurar e acessar painel/i }).click();
+  await page.getByRole("button", { name: /Loja física/i }).click(); // passo 1: nicho
+  await page.getByRole("button", { name: /Continuar/i }).click();
+  await page.getByPlaceholder("Minha Loja").fill("Loja E2E"); // passo 2: perguntas (nome)
+  await page.getByRole("button", { name: /Continuar/i }).click();
+  await page.getByRole("button", { name: /Continuar/i }).click(); // passo 3: módulos (default)
+  await page.getByRole("button", { name: /Continuar/i }).click(); // passo 4: dados (opcional)
+  await page.getByRole("button", { name: /Ir para meu painel/i }).click();
 
   // Configuração concluída → painel.
   await page.waitForURL(/\/app\/dashboard/, { timeout: 45_000 });
