@@ -10,7 +10,7 @@ async function main() {
   console.log("🌱 Starting seed...");
 
   // Plans
-  const startPlan = await prisma.plan.upsert({
+  await prisma.plan.upsert({
     where: { slug: "start" },
     update: { price: 89, setupFee: 0, userLimit: 3 },
     create: {

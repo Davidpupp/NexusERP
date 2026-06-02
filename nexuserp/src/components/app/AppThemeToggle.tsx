@@ -1,19 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Sun, Moon } from "lucide-react";
 import { saveThemePreference } from "@/actions/theme";
 
+const THEME_EVENT = "app-theme-change";
+
+function subscribe(callback: () => void) {
+  window.addEventListener(THEME_EVENT, callback);
+  return () => window.removeEventListener(THEME_EVENT, callback);
+}
+
+function getSnapshot() {
+  return document.getElementById("app-root")?.classList.contains("theme-dark") ?? true;
+}
+
+function getServerSnapshot() {
+  return true;
+}
+
 /**
  * Alterna o tema do app ERP (claro/escuro). Aplica na hora no #app-root, grava
- * cookie (SSR sem flash no reload) e persiste a preferência na conta.
+ * cookie (SSR sem flash no reload) e persiste a preferência na conta. O estado é
+ * lido diretamente da classe do #app-root via useSyncExternalStore (sem efeito).
  */
 export function AppThemeToggle() {
-  const [dark, setDark] = useState(true);
-
-  useEffect(() => {
-    setDark(document.getElementById("app-root")?.classList.contains("theme-dark") ?? true);
-  }, []);
+  const dark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const toggle = () => {
     const root = document.getElementById("app-root");
@@ -22,7 +34,7 @@ export function AppThemeToggle() {
     root.classList.toggle("theme-dark", nextDark);
     root.classList.toggle("theme-light", !nextDark);
     document.cookie = `nexus-app-theme=${nextDark ? "dark" : "light"};path=/;max-age=31536000;samesite=lax`;
-    setDark(nextDark);
+    window.dispatchEvent(new Event(THEME_EVENT));
     void saveThemePreference(nextDark ? "dark" : "light");
   };
 
