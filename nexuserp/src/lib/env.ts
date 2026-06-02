@@ -40,6 +40,10 @@ const envSchema = z.object({
   // Pluggy (Open Finance) — integração bancária; vazio = desativado
   PLUGGY_CLIENT_ID: z.string().optional(),
   PLUGGY_CLIENT_SECRET: z.string().optional(),
+
+  // E-mails (separados por vírgula) com acesso à área de plataforma /admin.
+  // Vazio = apenas o admin padrão (admin@nexuserp.com.br).
+  PLATFORM_ADMIN_EMAILS: z.string().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);

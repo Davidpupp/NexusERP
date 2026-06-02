@@ -1,8 +1,11 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { rateLimit } from "@/lib/rate-limit";
 import { getClientIp } from "@/lib/request";
+import { requirePlatformAdmin } from "@/lib/platform-admin";
+import { LEAD_STATUSES, type LeadStatus } from "@/lib/leads";
 import { leadSchema } from "@/lib/validations";
 import type { ActionResult } from "@/types";
 
@@ -53,5 +56,27 @@ export async function createLead(input: {
   } catch (e) {
     console.error("createLead:", e);
     return { success: false, error: "Erro ao enviar. Tente novamente em instantes." };
+  }
+}
+
+/**
+ * Atualiza o status de uma solicitação. Restrito ao admin de plataforma
+ * (área /admin). Lead não é tenant-scoped, então o guard é o requirePlatformAdmin.
+ */
+export async function updateLeadStatus(id: string, status: string): Promise<ActionResult<null>> {
+  const { email } = await requirePlatformAdmin();
+  if (!LEAD_STATUSES.includes(status as LeadStatus)) {
+    return { success: false, error: "Status inválido" };
+  }
+  try {
+    await prisma.lead.update({ where: { id }, data: { status } });
+    await prisma.auditLog.create({
+      data: { action: "LEAD_STATUS_UPDATED", entity: "Lead", entityId: id, metadata: { status, by: email } },
+    });
+    revalidatePath("/admin");
+    return { success: true, data: null };
+  } catch (e) {
+    console.error("updateLeadStatus:", e);
+    return { success: false, error: "Erro ao atualizar status." };
   }
 }
