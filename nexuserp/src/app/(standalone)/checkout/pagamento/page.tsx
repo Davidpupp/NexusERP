@@ -130,7 +130,7 @@ function PaymentForm() {
   ];
 
   return (
-    <CheckoutShell step={2}>
+    <CheckoutShell step={3}>
       <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
         <motion.div
           initial={{ opacity: 0, y: 12 }}

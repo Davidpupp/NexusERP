@@ -4,13 +4,13 @@ import { Logo } from "@/components/site/Logo";
 import { ShieldCheck, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const STEPS = ["Seus dados", "Pagamento"];
+const STEPS = ["Escolher plano", "Seus dados", "Pagamento"];
 
 export function CheckoutShell({
   step,
   children,
 }: {
-  readonly step: 1 | 2;
+  readonly step: 1 | 2 | 3;
   readonly children: React.ReactNode;
 }) {
   return (
@@ -35,7 +35,7 @@ export function CheckoutShell({
         {/* Step indicator */}
         <div className="flex items-center gap-3 mb-8">
           {STEPS.map((label, i) => {
-            const n = (i + 1) as 1 | 2;
+            const n = (i + 1) as 1 | 2 | 3;
             const active = n === step;
             const done = n < step;
             return (
@@ -60,7 +60,7 @@ export function CheckoutShell({
                   </span>
                   <span className="hidden sm:inline font-medium">{label}</span>
                 </div>
-                {i === 0 && <div className="w-8 sm:w-16 h-px bg-d-border" />}
+                {i < STEPS.length - 1 && <div className="w-8 sm:w-16 h-px bg-d-border" />}
               </div>
             );
           })}

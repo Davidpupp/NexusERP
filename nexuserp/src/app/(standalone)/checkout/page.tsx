@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { CheckoutShell } from "@/components/checkout/CheckoutShell";
 import { OrderSummary } from "@/components/checkout/OrderSummary";
+import { PlanPicker } from "@/components/checkout/PlanPicker";
 import { PLANS } from "@/data/plans";
 import { checkoutFormSchema, type CheckoutFormData } from "@/lib/validations";
 
@@ -15,11 +16,26 @@ const inputClass =
   "w-full px-4 py-3 rounded-xl bg-d-surface-container border border-d-border text-sm text-ice-white placeholder-d-on-surface-variant focus:outline-none focus:border-nexus-yellow focus:ring-2 focus:ring-nexus-yellow/20 focus:bg-graphite-surface transition-all";
 const labelClass = "block text-xs font-medium text-d-on-surface-variant mb-1.5";
 
-function CheckoutForm() {
-  const router = useRouter();
+function CheckoutContent() {
   const searchParams = useSearchParams();
-  const planSlug = searchParams.get("plano") ?? "growth";
-  const selectedPlan = PLANS.find((p) => p.slug === planSlug) ?? PLANS[1];
+  const planParam = searchParams.get("plano");
+
+  // Sem plano definido → tela interativa de escolha (passo 1).
+  if (!planParam) {
+    return (
+      <CheckoutShell step={1}>
+        <PlanPicker />
+      </CheckoutShell>
+    );
+  }
+
+  // Com plano (escolha feita ou CTA da landing) → formulário de dados (passo 2).
+  const selectedPlan = PLANS.find((p) => p.slug === planParam && p.price > 0) ?? PLANS[1];
+  return <CheckoutForm selectedPlan={selectedPlan} />;
+}
+
+function CheckoutForm({ selectedPlan }: { readonly selectedPlan: (typeof PLANS)[number] }) {
+  const router = useRouter();
 
   const {
     register,
@@ -43,7 +59,7 @@ function CheckoutForm() {
   };
 
   return (
-    <CheckoutShell step={1}>
+    <CheckoutShell step={2}>
       <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -86,19 +102,9 @@ function CheckoutForm() {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-5">
-              <div>
-                <label className={labelClass}>CNPJ</label>
-                <input {...register("cnpj")} placeholder="00.000.000/0001-00" className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Plano</label>
-                <select {...register("planId")} className={inputClass}>
-                  {PLANS.filter((p) => p.price > 0).map((p) => (
-                    <option key={p.slug} value={p.slug}>{p.name}</option>
-                  ))}
-                </select>
-              </div>
+            <div>
+              <label className={labelClass}>CNPJ</label>
+              <input {...register("cnpj")} placeholder="00.000.000/0001-00" className={inputClass} />
             </div>
 
             <button
@@ -128,7 +134,7 @@ function CheckoutForm() {
 export default function CheckoutPage() {
   return (
     <Suspense>
-      <CheckoutForm />
+      <CheckoutContent />
     </Suspense>
   );
 }
